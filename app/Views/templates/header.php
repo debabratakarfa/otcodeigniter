@@ -22,13 +22,13 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="/users/signup">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">SingIn</a>
+                    <a class="nav-link" href="/users/login">SingIn</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
