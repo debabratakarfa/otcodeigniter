@@ -124,15 +124,15 @@ class Login extends BaseController
 		}
 		else
 		{
-            $secret         = getenv('GOOOGLE_CAPTCHA_SECRET_KEY');
-            $response       = $this->request->getPost('g-recaptcha-response');
-            $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $response);
-            $responseData   = json_decode($verifyResponse);
-            if (! $responseData->success)
-            {
-                $this->session->setFlashdata('error-msg', 'reCAPTCHA input is not valid.');
-                return redirect()->to($this->baseUrl . '/users/login');
-            }
+			$secret         = getenv('GOOOGLE_CAPTCHA_SECRET_KEY');
+			$response       = $this->request->getPost('g-recaptcha-response');
+			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $response);
+			$responseData   = json_decode($verifyResponse);
+			if (! $responseData->success)
+			{
+				$this->session->setFlashdata('error-msg', 'reCAPTCHA input is not valid.');
+				return redirect()->to($this->baseUrl . '/users/login');
+			}
 
 			// check for user credentials
 			$uresult = $this->loginModel->get_user($data);

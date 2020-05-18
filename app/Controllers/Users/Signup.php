@@ -82,7 +82,7 @@ class Signup extends BaseController
 		}
 
 		$data['title'] = 'Sign Up';
-        $data['id'] = $sessId;
+		$data['id']    = $sessId;
 
 		echo view('templates/header', $data);
 		echo view('users/registration', $data);
