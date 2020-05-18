@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#"><?php echo env('PROJECT_TITLE'); ?></a>
+        <a class="navbar-brand" href="<?php echo env('app.baseURL'); ?>/"><?php echo env('PROJECT_TITLE'); ?></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -24,19 +24,19 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="<?php echo env('app.baseURL'); ?>/">Home</a>
                 </li>
 
                 <?php if(!empty($id)) { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/dashboard">Dashboard</a>
+                        <a class="nav-link" href="<?php echo env('app.baseURL'); ?>/users/dashboard">Dashboard</a>
                     </li>
                 <?php } else { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/signup">Register</a>
+                        <a class="nav-link" href="<?php echo env('app.baseURL'); ?>/users/signup">Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/login">SingIn</a>
+                        <a class="nav-link" href="<?php echo env('app.baseURL'); ?>/users/login">SingIn</a>
                     </li>
                 <?php } ?>
             </ul>
@@ -50,7 +50,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/logout">Logout</a>
+                        <a class="nav-link" href="<?php echo env('app.baseURL'); ?>/users/logout">Logout</a>
                     </li>
                 </ul>
             <?php } else { ?>

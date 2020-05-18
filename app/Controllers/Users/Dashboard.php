@@ -74,7 +74,7 @@ class Dashboard extends BaseController
 		}
 		else
 		{
-			$this->session->setFlashdata('msg', '<div class="alert alert-danger text-center">Session Expired !</div>');
+			$this->session->setFlashdata('error-msg', 'Session Expired !');
 			//load the login page
 			$data['title'] = 'Login';
 

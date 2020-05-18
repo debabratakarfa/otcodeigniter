@@ -31,11 +31,10 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Pages::view/home');
-$routes->get('(:segment)', 'Pages::view/$1');
-
 
 $routes->group('users', function($routes)
 {
+    $routes->add('/', 'Users\Dashboard::index');
     $routes->add('dashboard', 'Users\Dashboard::index');
     $routes->add('login', 'Users\Login::index');
     $routes->add('signup', 'Users\Signup::index');
