@@ -41,14 +41,6 @@
 			<div class="form-group form-check">
 				<div class="g-recaptcha" data-sitekey=<?php echo getenv('GOOOGLE_CAPTCHA_SITE_KEY'); ?>></div>
 			</div>
-			<div class="form-group form-check">
-				<label class="form-check-label">
-					<input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
-					<div class="valid-feedback">Valid.</div>
-					<div class="invalid-feedback">Check this checkbox to continue.</div>
-				</label>
-			</div>
-
 			<button type="submit" class="btn btn-primary">Sign up</button>
 		</form>
 		<div class="mx-auto my-5">
