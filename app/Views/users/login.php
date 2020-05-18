@@ -1,5 +1,4 @@
 <div class="login container">
-	<h1><a href="<?php echo base_url('users/login'); ?>" class="text-primary">Admin Access</a></h1>
 	<div class="login-bottom">
 		<?php
 		if (isset($_SESSION['msg']))
