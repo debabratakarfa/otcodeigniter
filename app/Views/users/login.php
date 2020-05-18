@@ -23,6 +23,9 @@
 				<div class="valid-feedback">Valid.</div>
 				<div class="invalid-feedback">Please fill out this field.</div>
 			</div>
+            <div class="form-group form-check">
+                <div class="g-recaptcha" data-sitekey=<?php echo getenv('GOOOGLE_CAPTCHA_SITE_KEY'); ?>></div>
+            </div>
 			<div class="form-group form-check">
 				<label class="form-check-label">
 					<input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.

@@ -22,19 +22,19 @@
 			</div>
 			<div class="form-group">
 				<label for="uname">First Name:</label>
-				<input type="text" class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" required>
+				<input type="text" class="form-control" id="first_name" placeholder="Enter First Name" name="first_name" minlength="4" required>
 				<div class="valid-feedback">Valid.</div>
 				<div class="invalid-feedback">Please fill out this field.</div>
 			</div>
 			<div class="form-group">
 				<label for="uname">Last Name:</label>
-				<input type="text" class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" required>
+				<input type="text" class="form-control" id="last_name" placeholder="Enter Last Name" name="last_name" minlength="4" required>
 				<div class="valid-feedback">Valid.</div>
 				<div class="invalid-feedback">Please fill out this field.</div>
 			</div>
 			<div class="form-group">
 				<label for="pwd">Password:</label>
-				<input type="password" class="form-control" id="user_password" placeholder="Enter password" name="user_password" required>
+				<input type="password" class="form-control" id="user_password" placeholder="Enter password" name="user_password" minlength="4" required>
 				<div class="valid-feedback">Valid.</div>
 				<div class="invalid-feedback">Please fill out this field.</div>
 			</div>
