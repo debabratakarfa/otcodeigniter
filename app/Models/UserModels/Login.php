@@ -13,6 +13,9 @@ class Login extends Model {
 
 	var $table = 'users';
 
+    /**
+     * Login constructor.
+     */
 	public function __construct()
 	{
 		parent::__construct();
@@ -20,6 +23,11 @@ class Login extends Model {
 		$db = \Config\Database::connect();
 	}
 
+    /**
+     *
+     * @param $data
+     * @return array|mixed
+     */
 	public function get_user($data)
 	{
 		$query = $this->db->table($this->table)->getWhere($data);
