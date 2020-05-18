@@ -1,7 +1,7 @@
 <?php
 
 /**
- * UserModels for SignUp
+ * UserModels for Signup
  *
  * @author Debabrata Karfa <im@deb.im>
  */
@@ -10,7 +10,7 @@ namespace App\Models\UserModels;
 
 use CodeIgniter\Model;
 
-class SignUp extends Model
+class Signup extends Model
 {
 	var $table = 'users';
 

@@ -21,7 +21,7 @@ use App\Controllers\BaseController;
 class Signup extends BaseController
 {
 	/**
-	 * SignUp Model.
+	 * Signup Model.
 	 *
 	 * @var signupModel
 	 */
