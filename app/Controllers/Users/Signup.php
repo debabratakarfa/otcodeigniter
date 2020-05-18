@@ -42,6 +42,12 @@ class Signup extends BaseController
 	protected $validation;
 
 	/**
+	 * Curl Client.
+	 *
+	 * @var \CodeIgniter\HTTP\CURLRequest
+	 */
+	protected $client;
+	/**
 	 * BaseURL.
 	 *
 	 * @var string
@@ -56,6 +62,7 @@ class Signup extends BaseController
 		$this->signupModel = new \App\Models\UserModels\Signup();
 		$this->session     = \Config\Services::session();
 		$this->validation  = \Config\Services::validation();
+		$this->client      = \Config\Services::curlrequest();
 		$this->baseUrl     = base_url();
 	}
 
@@ -125,6 +132,14 @@ class Signup extends BaseController
 			],
 		]);
 
+		$this->disposableEmailCheck($this->request->getPost('email_address'));
+
+		if ($this->disposableEmailCheck($this->request->getPost('email_address')))
+		{
+			$this->session->setFlashdata('msg', 'Kindly use valid email, not a disposable email !');
+			return redirect()->to($this->baseUrl . '/users/signup');
+		}
+
 		// form validation
 		if ($this->validation->run($data) === false)
 		{
@@ -134,31 +149,14 @@ class Signup extends BaseController
 		}
 		else
 		{
-			$secret = getenv('GOOOGLE_CAPTCHA_SECRET_KEY');
-
-			$credential = [
-				'secret'   => $secret,
-				'response' => $this->input->post('g-recaptcha-response'),
-			];
-
-			$verify = curl_init();
-			curl_setopt($verify, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-			curl_setopt($verify, CURLOPT_POST, true);
-			curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($credential));
-			curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
-			$response = curl_exec($verify);
-
-			$status = json_decode($response, true);
-
-			if ($status['success'])
+			$secret         = getenv('GOOOGLE_CAPTCHA_SECRET_KEY');
+			$response       = $this->request->getPost('g-recaptcha-response');
+			$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $response);
+			$responseData   = json_decode($verifyResponse);
+			if (! $responseData->success)
 			{
-				$this->db->insert('users', $data);
-				$this->session->set_flashdata('message', 'Google Recaptcha Successful');
-			}
-			else
-			{
-				$this->session->set_flashdata('message', 'Sorry Google Recaptcha Unsuccessful!!');
+				$this->session->setFlashdata('msg', 'reCAPTCHA input is not valid.');
+				return redirect()->to($this->baseUrl . '/users/signup');
 			}
 
 			$id = $this->signupModel->add_user($data);
@@ -168,5 +166,18 @@ class Signup extends BaseController
 				return redirect()->to($this->baseUrl . '/users/login');
 			}
 		}
+	}
+
+	/**
+	 * Check if it is a disposable Email or not.
+	 *
+	 * @param string $email Email Address.
+	 *
+	 * @return boolean  Return TRUE if it is a disposable Email.
+	 */
+	protected function disposableEmailCheck($email)
+	{
+		$verifyResponse = file_get_contents('https://open.kickbox.com/v1/disposable/' . $email);
+		return json_decode($verifyResponse)->disposable;
 	}
 }

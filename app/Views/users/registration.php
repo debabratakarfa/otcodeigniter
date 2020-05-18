@@ -3,6 +3,8 @@
     <?php
     if(isset($_SESSION['msg'])){
         echo '<div class="alert alert-danger text-center">'.$_SESSION['msg'].'</div>';
+    } elseif(isset($_SESSION['error-msg'])){
+        echo '<div class="alert alert-danger text-center">'.$_SESSION['error-msg'].'</div>';
     }
     ?>
 
