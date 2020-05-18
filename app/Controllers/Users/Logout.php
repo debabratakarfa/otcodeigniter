@@ -2,68 +2,88 @@
 
 /**
  * Class Logout.
+ *
  * @package App\Controllers\Users
  *
- * @author Debabrata Karfa <im@deb.im>
+ * @author  Debabrata Karfa <im@deb.im>
+ * @license https://opensource.org/licenses/MIT MIT
  */
 
 namespace App\Controllers\Users;
 
 use App\Controllers\BaseController;
 
+/**
+ * Class Logout
+ *
+ * @package App\Controllers\Users
+ */
 class Logout extends BaseController
 {
-    /**
-     * @var \CodeIgniter\Validation\Validation
-     */
-    protected $validation;
+	/**
+	 * Validation.
+	 *
+	 * @var \CodeIgniter\Validation\Validation
+	 */
+	protected $validation;
 
-    /**
-     * @var \CodeIgniter\Session\Session
-     */
-    protected $session;
+	/**
+	 * Session.
+	 *
+	 * @var \CodeIgniter\Session\Session
+	 */
+	protected $session;
 
-    /**
-     * @var string
-     */
-    protected $baseUrl;
+	/**
+	 * BaseUrl.
+	 *
+	 * @var string
+	 */
+	protected $baseUrl;
 
-    /**
-     * Logout constructor.
-     */
-    public function __construct()
-    {
-        $this->validation = \Config\Services::validation();
-        $this->session = \Config\Services::session();
-        $this->session->start();
-        $this->baseUrl = base_url();
-    }
+	/**
+	 * Logout constructor.
+	 */
+	public function __construct()
+	{
+		$this->validation = \Config\Services::validation();
+		$this->session    = \Config\Services::session();
+		$this->session->start();
+		$this->baseUrl = base_url();
+	}
 
-    /**
-     * @var string
-     */
-    var $id = "";
+	/**
+	 * ID.
+	 *
+	 * @var string
+	 */
+	var $id = '';
 
-    /**
-     * @return string
-     */
-    public function index()
-    {
-        $sess_id = $this->session->get('uid');
+	/**
+	 * Index Method.
+	 *
+	 * @return string
+	 */
+	public function index()
+	{
+		$sessId = $this->session->get('uid');
 
-        if(empty($sess_id))
-        {
-            $this->session->setFlashdata('error-msg', 'You are not Login user!');
-            return redirect()->to($this->baseUrl . '/users/login');
-        }
+		if (empty($sessId))
+		{
+			$this->session->setFlashdata('error-msg', 'You are not Login user!');
+			return redirect()->to($this->baseUrl . '/users/login');
+		}
 
-        $session_items = array('uname', 'uid');
-        $this->session->remove($session_items);
-        $this->session->setFlashdata('msg', 'Logout Sucessfully !');
+		$sessionItems = [
+			'uname',
+			'uid',
+		];
+		$this->session->remove($sessionItems);
+		$this->session->setFlashdata('msg', 'Logout Sucessfully !');
 
-        $data['title'] = 'Logout';
-        echo view('templates/header', $data);
-        echo view('users/login');
-        echo view('templates/footer', $data);
-    }
+		$data['title'] = 'Logout';
+		echo view('templates/header', $data);
+		echo view('users/login');
+		echo view('templates/footer', $data);
+	}
 }
