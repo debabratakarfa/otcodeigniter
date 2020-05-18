@@ -32,6 +32,7 @@ class Dashboard extends BaseController
     {
         $this->validation =  \Config\Services::validation();
         $this->session = \Config\Services::session();
+        $this->parser = \Config\Services::parser();;
         $this->session->start();
         $this->LoginModel = new Login();
         $this->ProfileModel = new Profiles();
@@ -51,9 +52,11 @@ class Dashboard extends BaseController
             $profileData = $this->ProfileModel->get_user($userId);
             $userData = get_object_vars ($profileData[0]);
             $userData['title'] = 'User Dashboard';
+            $listOfProfiles['profiles'] = $this->ProfileModel->get_users();
 
             echo view('templates/header', $userData);
             echo view('users/account',$userData);
+            echo $this->parser->setData($listOfProfiles)->render('users/profiles');
             echo view('templates/footer', $userData);
         } else {
             $this->session->setFlashdata('msg', '<div class="alert alert-danger text-center">Session Expired !</div>');

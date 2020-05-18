@@ -1,9 +1,11 @@
 <div class="login container">
-    <h1><a href="login" class="text-primary">Admin Access </a></h1>
+    <h1><a href="<?php echo base_url('users/login'); ?>" class="text-primary">Admin Access</a></h1>
     <div class="login-bottom">
         <?php
         if(isset($_SESSION['msg'])){
-            echo $_SESSION['msg'];
+            echo '<div class="alert alert-success text-center">' . $_SESSION['msg'] . '</div>';
+        } elseif (isset($_SESSION['error-msg'])){
+            echo '<div class="alert alert-danger text-center">' . $_SESSION['error-msg'] . '</div>';
         }
         ?>
         <form action="<?php echo base_url('users/authenticate'); ?>" method="post">

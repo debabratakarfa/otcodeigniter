@@ -53,6 +53,14 @@ class Login extends BaseController
      */
     public function index()
     {
+        $sess_id = $this->session->get('uid');
+
+        if(!empty($sess_id))
+        {
+            $this->session->setFlashdata('msg', 'Welcome Back !');
+            return redirect()->to($this->baseUrl . '/users/dashboard');
+        }
+
         $data['title'] = 'Login';
         echo view('templates/header', $data);
         echo view('users/login');
@@ -102,7 +110,7 @@ class Login extends BaseController
 
                 return redirect()->to($this->baseUrl . '/users/dashboard');
             } else {
-                $this->session->setFlashdata('msg', '<div class="alert alert-danger text-center">Wrong Email-ID or Password!</div>');
+                $this->session->setFlashdata('error-msg', 'Wrong Email-ID or Password!');
                 return redirect()->to($this->baseUrl . '/users/login');
             }
         }

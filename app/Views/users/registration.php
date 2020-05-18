@@ -1,15 +1,5 @@
 <div class="container">
     <h2>Create a New Account</h2>
-
-    <!-- Status message -->
-    <?php
-    if(!empty($success_msg)){
-        echo '<p class="status-msg success">'.$success_msg.'</p>';
-    }elseif(!empty($error_msg)){
-        echo '<p class="status-msg error">'.$error_msg.'</p>';
-    }
-    ?>
-
     <?php
     if(isset($_SESSION['msg'])){
         echo '<div class="alert alert-danger text-center">'.$_SESSION['msg'].'</div>';
@@ -44,12 +34,16 @@
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="form-group form-check">
+                <div class="g-recaptcha" data-sitekey=<?php echo getenv('GOOOGLE_CAPTCHA_SITE_KEY'); ?>></div>
+            </div>
+            <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" name="remember" required> I agree on blabla.
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Check this checkbox to continue.</div>
                 </label>
             </div>
+
             <button type="submit" class="btn btn-primary">Sign up</button>
         </form>
         <div class="mx-auto my-5">

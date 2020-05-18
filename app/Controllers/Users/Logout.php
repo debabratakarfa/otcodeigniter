@@ -49,9 +49,17 @@ class Logout extends BaseController
      */
     public function index()
     {
+        $sess_id = $this->session->get('uid');
+
+        if(empty($sess_id))
+        {
+            $this->session->setFlashdata('error-msg', 'You are not Login user!');
+            return redirect()->to($this->baseUrl . '/users/login');
+        }
+
         $session_items = array('uname', 'uid');
         $this->session->remove($session_items);
-        $this->session->setFlashdata('msg', '<div class="alert alert-danger text-center">Logout Sucessfully !</div>');
+        $this->session->setFlashdata('msg', 'Logout Sucessfully !');
 
         $data['title'] = 'Logout';
         echo view('templates/header', $data);

@@ -26,5 +26,11 @@ class Profiles extends Model
         $query = $this->db->table($this->table)->getWhere($data);
         return $query->getResult();
     }
+
+    public function get_users()
+    {
+        $query = $this->db->table($this->table)->get();
+        return $query->getResultArray();
+    }
 }
 

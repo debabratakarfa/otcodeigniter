@@ -46,6 +46,14 @@ class Signup extends BaseController
 
     public function index()
     {
+        $sess_id = $this->session->get('uid');
+
+        if(!empty($sess_id))
+        {
+            $this->session->setFlashdata('msg', 'Welcome Back!');
+            return redirect()->to($this->baseUrl . '/users/dashboard');
+        }
+
         $data['title'] = 'Sign Up'; // Capitalize the first letter
 
         echo view('templates/header', $data);
@@ -99,6 +107,30 @@ class Signup extends BaseController
             return redirect()->to($this->baseUrl . '/users/signup');
         }
         else {
+            $secret= getenv('GOOOGLE_CAPTCHA_SECRET_KEY');
+
+            $credential = array(
+                'secret' => $secret,
+                'response' => $this->input->post('g-recaptcha-response')
+            );
+
+            $verify = curl_init();
+            curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+            curl_setopt($verify, CURLOPT_POST, true);
+            curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($credential));
+            curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($verify);
+
+            $status= json_decode($response, true);
+
+            if($status['success']){
+                $this->db->insert('users',$data);
+                $this->session->set_flashdata('message', 'Google Recaptcha Successful');
+            }else{
+                $this->session->set_flashdata('message', 'Sorry Google Recaptcha Unsuccessful!!');
+            }
+
             $id = $this->SignupModel->add_user($data);
             if($id) {
                 $this->session->setFlashdata('msg', 'Successfully Register, Login now!');
