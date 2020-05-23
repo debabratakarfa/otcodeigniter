@@ -173,7 +173,7 @@ class Login extends BaseController
                  * Login Success
                  * Logging Used ID and redirect to dashboard.
                  */
-                log_message(4, '{pre} reCAPTCHA input is not valid {email} at Line no {line}', $this->errorContext);
+                log_message(4, '{pre} User {id} Login.', $this->errorContext);
 
                 return redirect()->to($this->baseUrl . '/users/dashboard');
 			}
