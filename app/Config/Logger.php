@@ -32,7 +32,7 @@ class Logger extends BaseConfig
 	| your log files will fill up very fast.
 	|
 	*/
-	public $threshold = 3;
+	public $threshold = 8;
 
 	/*
 	|--------------------------------------------------------------------------
@@ -114,7 +114,7 @@ class Logger extends BaseConfig
 			 * By default, logs are written to WRITEPATH . 'logs/'
 			 * Specify a different destination here, if desired.
 			 */
-			'path'            => '',
+			'path'            => ROOTPATH . 'logs/',
 		],
 
 		/**
