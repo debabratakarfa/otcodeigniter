@@ -42,12 +42,12 @@ class Login extends BaseController
 	 */
 	protected $session;
 
-    /**
-     * Log Error Handler.
-     *
-     * @var string[] Error Data.
-     */
-    protected $errorContext;
+	/**
+	 * Log Error Handler.
+	 *
+	 * @var string[] Error Data.
+	 */
+	protected $errorContext;
 
 	/**
 	 * Baseurl.
@@ -106,8 +106,8 @@ class Login extends BaseController
 		$data['email_address'] = $this->request->getPost('email_address');
 		$data['user_password'] = md5($this->request->getPost('user_password'));
 
-        $this->errorContext['pre'] = '[LOGIN ERROR]';
-        $this->errorContext['email'] = $data['email_address'];
+		$this->errorContext['pre']   = '[LOGIN ERROR]';
+		$this->errorContext['email'] = $data['email_address'];
 
 		$this->validation->setRules([
 			'email_address' => [
@@ -129,10 +129,10 @@ class Login extends BaseController
 		if ($this->validation->run($data) === false)
 		{
 			/**
-             * Validation fail
-             * Logging it and redirect to Login page.
-             */
-            log_message(4, '{pre} Validation Errors', $this->errorContext);
+			 * Validation fail
+			 * Logging it and redirect to Login page.
+			 */
+			log_message(4, '{pre} Validation Errors', $this->errorContext);
 			$this->session->setFlashdata('errors', '<div class="alert alert-danger text-center">' . $this->validation->listErrors() . '</div>');
 			return redirect()->to($this->baseUrl . '/users/login');
 		}
@@ -144,12 +144,12 @@ class Login extends BaseController
 			$responseData   = json_decode($verifyResponse);
 			if (! $responseData->success)
 			{
-                /**
-                 * reCAPTHCHA validation fail
-                 * Logging it and redirect to Login page.
-                 */
-                log_message(4, '{pre} reCAPTCHA input is not valid {email} at Line no {line}', $this->errorContext);
-                $this->session->setFlashdata('error-msg', 'reCAPTCHA input is not valid, please check.');
+				/**
+				 * Checking if reCAPTHCHA validation fail or not.
+				 * Logging it and redirect to Login page.
+				 */
+				log_message(4, '{pre} reCAPTCHA input is not valid {email} at Line no {line}', $this->errorContext);
+				$this->session->setFlashdata('error-msg', 'reCAPTCHA input is not valid, please check.');
 				return redirect()->to($this->baseUrl . '/users/login');
 			}
 
@@ -167,25 +167,25 @@ class Login extends BaseController
 
 				$this->session->set($sessData);
 
-                $this->errorContext['pre'] = '[LOGIN SUCCESS]';
-                $this->errorContext['id'] = $sessData['uid'];
-                /**
-                 * Login Success
-                 * Logging Used ID and redirect to dashboard.
-                 */
-                log_message(4, '{pre} User {id} Login.', $this->errorContext);
+				$this->errorContext['pre'] = '[LOGIN SUCCESS]';
+				$this->errorContext['id']  = $sessData['uid'];
+				/**
+				 * Login Success
+				 * Logging Used ID and redirect to dashboard.
+				 */
+				log_message(4, '{pre} User {id} Login.', $this->errorContext);
 
-                return redirect()->to($this->baseUrl . '/users/dashboard');
+				return redirect()->to($this->baseUrl . '/users/dashboard');
 			}
 			else
 			{
-                /**
-                 * Login fail,
-                 * Logging it and redirect to Login page.
-                 */
-                log_message(4, '{pre} Login failed for {email}', $this->errorContext);
+				/**
+				 * Login fail,
+				 * Logging it and redirect to Login page.
+				 */
+				log_message(4, '{pre} Login failed for {email}', $this->errorContext);
 
-                $this->session->setFlashdata('error-msg', 'Wrong Email-ID or Password!');
+				$this->session->setFlashdata('error-msg', 'Wrong Email-ID or Password!');
 				return redirect()->to($this->baseUrl . '/users/login');
 			}
 		}
