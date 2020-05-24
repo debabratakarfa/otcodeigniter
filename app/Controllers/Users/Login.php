@@ -42,11 +42,11 @@ class Login extends BaseController
 	 */
 	protected $session;
 
-	/**
-	 * Log Error Handler.
-	 *
-	 * @var string[] Error Data.
-	 */
+    /**
+     * Log Error Handler.
+     *
+     * @var array Error Data.
+     */
 	protected $errorContext;
 
 	/**
