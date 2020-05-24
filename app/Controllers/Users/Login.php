@@ -125,6 +125,7 @@ class Login extends BaseController
 				],
 			],
 		]);
+
 		// form validation
 		if ($this->validation->run($data) === false)
 		{
@@ -169,6 +170,7 @@ class Login extends BaseController
 
 				$this->errorContext['pre'] = '[LOGIN SUCCESS]';
 				$this->errorContext['id']  = $sessData['uid'];
+
 				/**
 				 * Login Success
 				 * Logging Used ID and redirect to dashboard.
